@@ -48,7 +48,7 @@ int main() {
 `CMakeLists.txt`:
 
 ```cmake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 project(HelloCmake)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -61,7 +61,7 @@ add_executable(app main.cpp)
 
 | 行 | 意思 |
 | --- | --- |
-| `cmake_minimum_required(VERSION 3.10)` | 要求 CMake 至少是 3.10 版本 |
+| `cmake_minimum_required(VERSION 3.13)` | 要求 CMake 至少是 3.13 版本 |
 | `project(HelloCmake)` | 给项目起个名字 |
 | `set(CMAKE_CXX_STANDARD 17)` | 使用 C++17,相当于命令行里的 `-std=c++17` |
 | `set(CMAKE_CXX_STANDARD_REQUIRED ON)` | 编译器不支持 17 就报错,不要悄悄降级 |
@@ -108,7 +108,7 @@ student_project/
 `CMakeLists.txt`:
 
 ```cmake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 project(StudentProject)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -152,7 +152,7 @@ target_compile_options(app PRIVATE -Wall -Wextra)
 第 12 课学过,编译时加 `-fsanitize=address -g` 可以查内存错误。每次手改配置很麻烦,可以在 `CMakeLists.txt` 里加一个开关:
 
 ```cmake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 project(HelloCmake)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -171,6 +171,7 @@ endif()
 - `option(名字 "说明" 默认值)` 定义一个开关,默认关闭(`OFF`)。
 - `if(USE_ASAN) ... endif()` 在开关打开时,才加上这些选项。
 - 内存检查要在**编译和链接**两个阶段都加选项,所以有两行。
+- `target_link_options` 是 CMake **3.13** 才有的命令,所以最低版本写的是 3.13。版本号写低了,在老版本 CMake 上会直接报 `Unknown CMake command`。
 
 平时正常构建。想查内存问题时,用另一个文件夹,并打开开关:
 
